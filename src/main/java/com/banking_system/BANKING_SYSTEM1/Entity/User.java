@@ -11,6 +11,20 @@ public class User {
     @Column(name = "id")
     private Long id;
 
+
+    @Column(name = "username")
+    private String userName;
+
+
+    private String email;
+    private String password;
+
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    private  boolean verify; // true after otp come
+
     public Role getRole() {
         return role;
     }
@@ -19,16 +33,9 @@ public class User {
         this.role = role;
     }
 
-    @Column(name = "username")
-    private String userName;
 
 
-    private String email;
-    private String password;
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
-    // ✅ Required by JPA
     public User() {
     }
 
@@ -65,5 +72,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isVerify() {
+        return verify;
+    }
+
+    public void setVerify(boolean verify) {
+        this.verify = verify;
     }
 }
