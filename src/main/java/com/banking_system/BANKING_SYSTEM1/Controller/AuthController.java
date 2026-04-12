@@ -11,11 +11,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
     AuthServices authServices;
 
-    @RequestMapping("/api/auth")
+    //step 1
+    @PostMapping("/Send-otp")
+    public String sendOtp(@RequestParam String email){
+        return otpService.sendOtp(email);
+
+    }
     @PostMapping("/register")
     public String register(@RequestBody UserRequestDTO user){
         return authServices.register(user.getUsername(), user.getEmail(), user.getPassword());
