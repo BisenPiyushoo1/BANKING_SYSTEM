@@ -8,5 +8,9 @@ import org.springframework.stereotype.Service;
 public class OtpService {
     @Autowired
     private  OtpRepository otpRepository;
+    public String sendOtp(String email){
+        return "email Send";
+
+    }
 
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
+
 
 @Service
 public class AuthServices {
@@ -19,9 +21,10 @@ public class AuthServices {
     jwtUtil jwtUtil;
 
     public String register(String username,String email, String password){
-        User Exixtance=userRepository.findByEmail(email);
-        if(Exixtance!=null){
-            return " User Already Exist" ;
+        Optional<User> existence = userRepository.findByEmail(email);
+
+        if (existence.isPresent()) {
+            return "User Already Exist";
         }
         //DTO to ENTITY
         User user=new User();
@@ -36,11 +39,12 @@ public class AuthServices {
         return  "registration successfully done!";
     }
     public String login(String email,String password){
-        User mail=userRepository.findByEmail(email);
-        if (mail==null){
+        Optional<User> mail=userRepository.findByEmail(email);
+        if (mail.isEmpty()){
             return "invalid credentials";
         }
-        if (passwordEncoder.matches(password, mail.getPassword())){
+        User user=mail.get();
+        if (passwordEncoder.matches(password, user.getPassword())){
             return jwtUtil.generateToken(email);
         }
 

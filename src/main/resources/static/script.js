@@ -34,3 +34,14 @@ function withdrawMoney() {
         document.getElementById("result").innerText = data;
     });
 }
+function login(){
+let a=("http://localhost:8080/api/auth/register");
+
+fetch(a{
+method:POST
+})
+.then(response => response.text())
+.then(data=>{
+})
+
+}

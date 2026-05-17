@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<form id="registerForm">
+    <label>Username</label>
+    <input type="text" id="username">
 
-</body>
-</html>
+    <label>Email</label>
+    <input type="text" id="email">
+
+    <label>Password</label>
+    <input type="password" id="password">
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const userData = {
+            username: document.getElementById("username").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        };
+
+        console.log("Sending request...");
+
+        const response = await fetch("http://localhost:8080/api/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        });
+
+        const result = await response.text();
+        console.log("Response:", result);
+        alert(result);
+    });
+</script>

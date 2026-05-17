@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/fund-transfer")
 @RestController
 public class FundTransfer {
-    @Autowired
-    private fundTransferRequestDto fundTransferRequestDto;
+
 
     @PostMapping("/send")
     public void SendMoney(@RequestBody fundTransferRequestDto details){
+
 
 
     }
