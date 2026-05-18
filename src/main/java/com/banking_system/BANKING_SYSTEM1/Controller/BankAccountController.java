@@ -15,11 +15,8 @@ public class BankAccountController {
 
         return "";
     }
-    @PostMapping("/deposit")
-    public String deposit(@RequestParam int amount) {
-        accountService.deposit(amount);
-        return "Deposit successful";
-    }
+
+
 
 
 }

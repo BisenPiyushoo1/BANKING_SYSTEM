@@ -201,22 +201,5 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class AccountController {
 
-    @Autowired
-    private AccountService accountService;
 
-    @GetMapping("/balance")
-    public BalanceResponse getBalance() {
-        return new BalanceResponse(accountService.getBalance());
-    }
-
-    @PostMapping("/deposit")
-    public String deposit(@RequestParam int amount) {
-        accountService.deposit(amount);
-        return "Deposit successful";
-    }
-
-    @PostMapping("/withdraw")
-    public String withdraw(@RequestParam int amount) {
-        return accountService.withdraw(amount);
-    }
 }
