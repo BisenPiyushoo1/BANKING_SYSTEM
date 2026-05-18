@@ -1,15 +1,25 @@
 package com.banking_system.BANKING_SYSTEM1.Controller;
 
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import com.banking_system.BANKING_SYSTEM1.DTO.AccountCreateDTO;
 
 @RestController
-@RequestMapping("/api/accountCreate")
+@RequestMapping("/api/account")
 
 @CrossOrigin("*")
 public class BankAccountController {
+
+    @PostMapping("/create")
+    public String Account(RequestBody  AccountCreateDTO account ){
+
+        return "";
+    }
+    @PostMapping("/deposit")
+    public String deposit(@RequestParam int amount) {
+        accountService.deposit(amount);
+        return "Deposit successful";
+    }
 
 
 }
