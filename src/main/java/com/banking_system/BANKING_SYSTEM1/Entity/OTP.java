@@ -13,7 +13,7 @@ public class OTP {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
      private  String email;
-     private String otp;
+     private int otp;
      private LocalDateTime expiryTime;
 
     public String getEmail() {
@@ -40,11 +40,11 @@ public class OTP {
         this.id = id;
     }
 
-    public String getOtp() {
+    public int getOtp() {
         return otp;
     }
 
-    public void setOtp(String otp) {
+    public void setOtp(int otp) {
         this.otp = otp;
     }
 }

@@ -19,13 +19,12 @@ import java.util.Map;
 public class AuthController {
     @Autowired
     AuthServices authServices;
-    @Autowired
-    OtpService otpService;
+
 
     //step 1
     @PostMapping("/Send-otp")
-    public String sendOtp(@RequestParam String email){
-        return otpService.sendOtp(email);
+    public int sendOtp(@RequestParam String email){
+        return authServices.sendOtp(email);
 
     }
 
@@ -42,6 +41,10 @@ public class AuthController {
         response.put("token",token);
         return response;
 
+    }
+    @PostMapping("/verifyOtp")
+    public String verifyOtp(int otp,String email){
+        return authServices.verify(otp,email);
     }
 
 
