@@ -10,7 +10,7 @@ public class PublicController {
 
     @GetMapping("/about")
     public String About(){
-        return
+        return"";
     }
 
 }

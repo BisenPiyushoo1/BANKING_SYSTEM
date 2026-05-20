@@ -71,17 +71,18 @@ public class AuthServices {
         return otp;
 
     }
-    public String verify(int otp,String email){
-        Optional<OTP> Otp=otpRepository.findByEmail(email);
-        if(Otp.isEmpty()){
+    public String verify(int otp,String email) {
+        Optional<OTP> Otp = otpRepository.findByEmail(email);
+        if (Otp.isEmpty()) {
             return "user not found";
 
         }
-        OTP otpEntity=Otp.get();
-        if(otpEntity.getExpiryTime().isBefore(LocalDateTime.now())){
+        OTP otpEntity = Otp.get();
+        if (otpEntity.getExpiryTime().isBefore(LocalDateTime.now())) {
 
         }
 
 
+        return " verified successfully";
     }
 }

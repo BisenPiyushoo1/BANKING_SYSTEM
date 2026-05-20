@@ -11,7 +11,7 @@ import com.banking_system.BANKING_SYSTEM1.DTO.AccountCreateDTO;
 public class BankAccountController {
 
     @PostMapping("/create")
-    public String Account(RequestBody  AccountCreateDTO account ){
+    public String Account(RequestBody  AccountCreateDTO  ){
 
         return "";
     }

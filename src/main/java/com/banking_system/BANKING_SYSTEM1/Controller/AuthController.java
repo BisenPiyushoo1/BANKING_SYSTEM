@@ -2,9 +2,7 @@ package com.banking_system.BANKING_SYSTEM1.Controller;
 
 import com.banking_system.BANKING_SYSTEM1.DTO.LoginRequest;
 import com.banking_system.BANKING_SYSTEM1.DTO.UserRequestDTO;
-import com.banking_system.BANKING_SYSTEM1.Services.AccountService;
 import com.banking_system.BANKING_SYSTEM1.Services.AuthServices;
-import com.banking_system.BANKING_SYSTEM1.Services.OtpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +43,11 @@ public class AuthController {
     @PostMapping("/verifyOtp")
     public String verifyOtp(int otp,String email){
         return authServices.verify(otp,email);
+    }
+
+    @PostMapping("/forget")
+    public String forgetPassword(@RequestBody String password){
+        return "password Successfully changed";
     }
 
 
