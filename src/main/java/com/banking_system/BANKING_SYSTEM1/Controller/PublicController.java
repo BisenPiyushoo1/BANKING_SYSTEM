@@ -12,5 +12,9 @@ public class PublicController {
     public String About(){
         return"";
     }
+    @GetMapping("/contact")
+    public String Contact(){
+        return "6264908431";
+    }
 
 }
