@@ -34,6 +34,7 @@ public class AuthController {
     }
     @PostMapping("/login")
     public Map<String,String> login(@RequestBody LoginRequest request){
+        System.out.println("LOGIN API HIT");
         String token =authServices.login(request.getEmail(),request.getPassword());
         Map<String,String>response=new HashMap<>();
         response.put("token",token);
