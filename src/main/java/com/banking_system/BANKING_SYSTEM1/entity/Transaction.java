@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="transaction")
+@Table(name="transactionhello")
 public class Transaction {
 
 
