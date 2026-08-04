@@ -85,4 +85,8 @@ public class AuthServices {
 
         return " verified successfully";
     }
+    public String resetPassword(String password,String repassword){
+
+        return "";
+    }
 }

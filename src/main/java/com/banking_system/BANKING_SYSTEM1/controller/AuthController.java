@@ -46,9 +46,15 @@ public class AuthController {
         return authServices.verify(otp,email);
     }
 
-    @PostMapping("/forget")
+    @PostMapping("/forget-password")
     public String forgetPassword(@RequestBody String password){
         return "password Successfully changed";
+    }
+
+    @PostMapping("resetPassword")
+    public String resetPassword(String password, String repassword){
+        System.out.println("reset password successfully");
+        return authServices.resetPassword(password,repassword);
     }
 
 
