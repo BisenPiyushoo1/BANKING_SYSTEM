@@ -22,7 +22,7 @@ public class AdminController {
 
     @GetMapping("/deleteAcc")
     public String deleteAccount(@RequestBody User user){
-        return "hello";
+        return "hello worlds";
 
     }
 }
