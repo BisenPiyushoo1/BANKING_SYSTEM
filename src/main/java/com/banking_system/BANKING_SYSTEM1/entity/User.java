@@ -2,13 +2,15 @@ package com.banking_system.BANKING_SYSTEM1.entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Long id;
 
 
@@ -24,6 +26,8 @@ public class User {
     private Role role;
 
     private  boolean verify; // true after otp come
+
+    private Timestamp createdAt;
 
     public Role getRole() {
         return role;
