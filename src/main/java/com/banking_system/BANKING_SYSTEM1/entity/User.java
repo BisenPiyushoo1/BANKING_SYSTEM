@@ -27,7 +27,7 @@ public class User {
 
     private  boolean verify; // true after otp come
 
-    private Timestamp createdAt;
+
 
     public Role getRole() {
         return role;
