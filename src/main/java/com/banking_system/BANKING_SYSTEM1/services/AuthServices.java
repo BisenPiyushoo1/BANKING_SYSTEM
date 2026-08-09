@@ -1,9 +1,11 @@
 package com.banking_system.BANKING_SYSTEM1.services;
 
+import com.banking_system.BANKING_SYSTEM1.entity.Customers;
 import com.banking_system.BANKING_SYSTEM1.entity.OTP;
 import com.banking_system.BANKING_SYSTEM1.entity.Role;
 import com.banking_system.BANKING_SYSTEM1.helper.jwtUtil;
 import com.banking_system.BANKING_SYSTEM1.entity.User;
+import com.banking_system.BANKING_SYSTEM1.repository.CustomersRepository;
 import com.banking_system.BANKING_SYSTEM1.repository.OtpRepository;
 import com.banking_system.BANKING_SYSTEM1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,10 @@ public class AuthServices {
     jwtUtil jwtUtil;
     @Autowired
     OtpRepository otpRepository;
+    @Autowired
+    CustomersRepository customersRepository;
 
-    public String register(String username,String email, String password){
+    public String register(String username, String email, String password){
         Optional<User> existence = userRepository.findByEmail(email);
 
         if (existence.isPresent()) {
@@ -38,9 +42,20 @@ public class AuthServices {
         user.setRole(Role.USER); // by default role user
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
+        user.setVerify(false);
+        user.setCreated_at(LocalDateTime.now());
+
+        Customers customers=new Customers();
+        customers.setUser(user);
+        customers.setCreatedAt(LocalDateTime.now());
+
+
+
 
 
         userRepository.save(user);
+        customersRepository.save(customers);
+
 
         return  "registration successfully done!";
     }

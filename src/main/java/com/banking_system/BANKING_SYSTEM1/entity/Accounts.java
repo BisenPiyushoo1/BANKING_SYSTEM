@@ -2,33 +2,40 @@ package com.banking_system.BANKING_SYSTEM1.entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
+
 @Entity
-@Table(name = "account")
-public class Account {
+@Table(name = "accounts")
+public class Accounts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
     private Long accountId;
+    @ManyToOne
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "id"
+    )
+    private User user;
 
     private Long accountNumber;
 
     private String balance;
 
     private String accountType;
+    private
 
-    @ManyToOne
-    @JoinColumn(
-            name = "user_id",          // FK in account table
-            referencedColumnName = "id"
-    )
-    private User user;
+    private Timestamp createdAt;
 
-    // ✅ Required by JPA
-    public Account() {
+
+
+
+
+    public Accounts() {
     }
 
-    public Account(Long accountNumber, String accountType, String balance, User user) {
+    public Accounts(Long accountNumber, String accountType, String balance, User user) {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.balance = balance;

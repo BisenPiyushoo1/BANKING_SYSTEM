@@ -1,9 +1,13 @@
 package com.banking_system.BANKING_SYSTEM1.dto;
 
+
+import java.time.LocalDate;
+
 public class UserRequestDTO {
     String username;
     String email;
     String password;
+
 
     public String getEmail() {
         return email;
@@ -29,7 +33,13 @@ public class UserRequestDTO {
         this.username = username;
     }
 
-    UserRequestDTO(){
 
+    public UserRequestDTO(String email, String password, String username) {
+        this.email = email;
+
+        this.password = password;
+        this.username = username;
     }
+
+
 }

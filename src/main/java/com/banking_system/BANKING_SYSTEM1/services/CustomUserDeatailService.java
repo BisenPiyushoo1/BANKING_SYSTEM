@@ -1,6 +1,7 @@
 package com.banking_system.BANKING_SYSTEM1.services;
 
-import com.banking_system.BANKING_SYSTEM1.entity.User;
+
+import com.banking_system.BANKING_SYSTEM1.entity.Users;
 import com.banking_system.BANKING_SYSTEM1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ public class CustomUserDeatailService implements UserDetailsService {
     private UserRepository userRepository;
      @Override
      public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-         User user=userRepository.findByEmail(email)
+         Users user=userRepository.findByEmail(email)
                  .orElseThrow(()-> new UsernameNotFoundException("User Not Found"));
 
          return org.springframework.security.core.userdetails.User

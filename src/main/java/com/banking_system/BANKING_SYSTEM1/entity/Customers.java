@@ -2,8 +2,9 @@ package com.banking_system.BANKING_SYSTEM1.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Customers")
@@ -14,21 +15,33 @@ public class Customers {
     @Column(name = "customer_id")
     private Long id;
 
-    private Long user_id;
+    @OneToOne
+    @JoinColumn(name="user_id",referencedColumnName = "id",unique = true)
+    private User user;
 
+    @Column(name = "first_name", length = 50)
     private String first_name;
+
+    @Column(name = "last_name", length = 50)
     private String last_name;
 
+    @Column(name="phone", length =15,unique = true)
     private Long phone;
 
     @Column(name="date_of_birth")
-    private Date DOB;
+    private LocalDate DOB;
 
+    @Column(name="address", length = 255)
     private String address;
 
-    private Timestamp createdAt;
+    @Column(name="createdAt")
+    private LocalDateTime createdAt;
 
-    public Customers(String address, Timestamp createdAt, Date DOB, String first_name, Long id, String last_name, Long phone, Long user_id) {
+    public Customers() {
+
+    }
+
+    public Customers(String address, LocalDateTime createdAt, LocalDate DOB, String first_name, Long id, String last_name, Long phone) {
         this.address = address;
         this.createdAt = createdAt;
         this.DOB = DOB;
@@ -36,7 +49,7 @@ public class Customers {
         this.id = id;
         this.last_name = last_name;
         this.phone = phone;
-        this.user_id = user_id;
+
     }
 
     public String getAddress() {
@@ -47,19 +60,19 @@ public class Customers {
         this.address = address;
     }
 
-    public Timestamp getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getDOB() {
+    public LocalDate getDOB() {
         return DOB;
     }
 
-    public void setDOB(Date DOB) {
+    public void setDOB(LocalDate DOB) {
         this.DOB = DOB;
     }
 
@@ -95,14 +108,11 @@ public class Customers {
         this.phone = phone;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
-
-    public Customers() {
+    public void setUser(User user) {
+        this.user = user;
     }
 }
