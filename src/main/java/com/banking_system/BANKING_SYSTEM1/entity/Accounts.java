@@ -12,19 +12,20 @@ public class Accounts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
     private Long accountId;
+
     @ManyToOne
     @JoinColumn(
             name = "user_id",
             referencedColumnName = "id"
     )
-    private User user;
+    private Customers customers;
 
     private Long accountNumber;
 
     private String balance;
 
-    private String accountType;
-    private
+    private AccountType accountType;
+    private AccountStatus accountStatus;
 
     private Timestamp createdAt;
 
@@ -35,12 +36,7 @@ public class Accounts {
     public Accounts() {
     }
 
-    public Accounts(Long accountNumber, String accountType, String balance, User user) {
-        this.accountNumber = accountNumber;
-        this.accountType = accountType;
-        this.balance = balance;
-        this.user = user;
-    }
+
 
     public Long getAccountId() {
         return accountId;
@@ -62,19 +58,39 @@ public class Accounts {
         this.balance = balance;
     }
 
-    public String getAccountType() {
+    public AccountType getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(String accountType) {
+    public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
 
-    public User getUser() {
-        return user;
+    public Customers getCustomers() {
+        return customers;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomers(Customers user) {
+        this.customers = customers;
+    }
+
+    public AccountStatus getAccountStatus() {
+        return accountStatus;
+    }
+
+    public void setAccountStatus(AccountStatus accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 }

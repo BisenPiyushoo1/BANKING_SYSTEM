@@ -88,9 +88,6 @@ public class Customers {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getLast_name() {
         return last_name;
