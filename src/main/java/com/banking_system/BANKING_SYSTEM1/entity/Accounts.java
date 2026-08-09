@@ -2,6 +2,7 @@ package com.banking_system.BANKING_SYSTEM1.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -11,20 +12,27 @@ public class Accounts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
-    private Long accountId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(
-            name = "user_id",
+            name = "customer_id",
             referencedColumnName = "id"
     )
     private Customers customers;
 
+    @Column(unique = true)
     private Long accountNumber;
 
-    private String balance;
+    private BigDecimal balance;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="account_type")
     private AccountType accountType;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="account_status")
     private AccountStatus accountStatus;
 
     private Timestamp createdAt;
@@ -39,7 +47,7 @@ public class Accounts {
 
 
     public Long getAccountId() {
-        return accountId;
+        return id;
     }
 
     public Long getAccountNumber() {
@@ -50,11 +58,11 @@ public class Accounts {
         this.accountNumber = accountNumber;
     }
 
-    public String getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -90,7 +98,5 @@ public class Accounts {
         this.createdAt = createdAt;
     }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
+
 }
