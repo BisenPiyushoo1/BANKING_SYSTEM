@@ -53,7 +53,7 @@ public class AuthController {
 
     @PostMapping("resetPassword")
     public String resetPassword(String password, String repassword){
-        System.out.println("reset password successfully");
+        System.out.println("reset password successfullyy");
         return authServices.resetPassword(password,repassword);
     }
 
