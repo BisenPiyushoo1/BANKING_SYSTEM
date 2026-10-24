@@ -15,11 +15,9 @@ public class Accounts {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(
-            name = "customer_id",
-            referencedColumnName = "id"
-    )
+    @JoinColumn(name = "customer_id")
     private Customers customers;
+
 
     @Column(unique = true)
     private Long accountNumber;
@@ -78,7 +76,7 @@ public class Accounts {
         return customers;
     }
 
-    public void setCustomers(Customers user) {
+    public void setCustomers(Customers customers) {
         this.customers = customers;
     }
 

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Customers")
@@ -16,8 +17,11 @@ public class Customers {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name="user_id",referencedColumnName = "id",unique = true)
+    @JoinColumn(name = "user_id", unique = true)
     private User user;
+
+    @OneToMany(mappedBy = "customers")
+    private List<Accounts> accounts;
 
     @Column(name = "first_name", length = 50)
     private String first_name;

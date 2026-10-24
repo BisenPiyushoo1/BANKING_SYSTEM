@@ -19,7 +19,7 @@ public class Transactions {
     private Long id ;
 
     @ManyToOne
-    @JoinColumn(name="account_id" ,referencedColumnName = "id")
+    @JoinColumn(name="account_id")
     private Accounts accounts;
 
 

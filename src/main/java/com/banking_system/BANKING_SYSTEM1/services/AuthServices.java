@@ -1,5 +1,9 @@
 package com.banking_system.BANKING_SYSTEM1.services;
 
+import com.banking_system.BANKING_SYSTEM1.Exception.BadCredentialsException;
+import com.banking_system.BANKING_SYSTEM1.Exception.UsernameNotFoundException;
+import com.banking_system.BANKING_SYSTEM1.dto.LoginRequest;
+import com.banking_system.BANKING_SYSTEM1.dto.RegisterRequest;
 import com.banking_system.BANKING_SYSTEM1.entity.Customers;
 import com.banking_system.BANKING_SYSTEM1.entity.OTP;
 import com.banking_system.BANKING_SYSTEM1.entity.Role;
@@ -29,25 +33,28 @@ public class AuthServices {
     OtpRepository otpRepository;
     @Autowired
     CustomersRepository customersRepository;
+    @Autowired
+    EmailService emailService;
 
-    public String register(String username, String email, String password){
-        Optional<User> existence = userRepository.findByEmail(email);
+    public void register(RegisterRequest request){
 
-        if (existence.isPresent()) {
-            return "User Already Exist";
-        }
+
+
         //DTO to ENTITY
         User user=new User();
-        user.setUserName(username);
+        user.setUserName(request.getUserName());
         user.setRole(Role.USER); // by default role user
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setVerify(false);
         user.setCreated_at(LocalDateTime.now());
 
         Customers customers=new Customers();
         customers.setUser(user);
         customers.setCreatedAt(LocalDateTime.now());
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("Email already registered");
+        }
 
 
 
@@ -56,24 +63,22 @@ public class AuthServices {
         userRepository.save(user);
         customersRepository.save(customers);
 
-
-        return  "registration successfully done!";
     }
-    public String login(String email,String password){
-        Optional<User> mail=userRepository.findByEmail(email);
-        if (mail.isEmpty()){
-            return "invalid credentials";
-        }
-        User user=mail.get();
-        if (passwordEncoder.matches(password, user.getPassword())){
-            return jwtUtil.generateToken(email);
+    public String login(LoginRequest request){
+        User user=userRepository.findByEmail(request.getEmail())
+                .orElseThrow(()->new UsernameNotFoundException("username not found"));
+
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())){
+            throw new BadCredentialsException("invalid credentials");
+
         }
 
-        return "invalid credentials";
+        return jwtUtil.generateToken(request.getEmail());
 
     }
 
-    public int sendOtp(String email){
+    public String sendOtp(String email){
         otpRepository.deleteByEmail(email);
         SecureRandom random=new SecureRandom();
         int otp=random.nextInt(9000)+1000;
@@ -83,7 +88,7 @@ public class AuthServices {
         otpEntity.setEmail(email);
         otpEntity.setExpiryTime(expiryTime);
         otpRepository.save(otpEntity);
-        return otp;
+        return emailService.sendEmail(email,"verification Code",String.valueOf(otp));
 
     }
     public String verify(int otp,String email) {
@@ -94,11 +99,16 @@ public class AuthServices {
         }
         OTP otpEntity = Otp.get();
         if (otpEntity.getExpiryTime().isBefore(LocalDateTime.now())) {
+            return "otp expired";
 
         }
+        if(otpEntity.getOtp()!=otp){
+            return "Invalid Otp";
+        }
+        otpRepository.delete(otpEntity);
 
 
-        return " verified successfully";
+        return " otp verified successfully";
     }
     public String resetPassword(String password,String repassword){
 
